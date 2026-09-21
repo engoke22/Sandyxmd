@@ -1,0 +1,11 @@
+name = "unique-001"
+main = "src/index.js"
+compatibility_date = "2026-09-21"
+
+[vars]
+BOT_VERSION = "v1.0.0"
+
+[[kv_namespaces]]
+binding = "BOT_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_ID"
