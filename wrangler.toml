@@ -7,5 +7,5 @@ BOT_VERSION = "v1.0.0"
 
 [[kv_namespaces]]
 binding = "BOT_KV"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "66aeea08d5544e6ebae695fdfddb0f88"
 preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_ID"
