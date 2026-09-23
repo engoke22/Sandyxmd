@@ -1,35 +1,36 @@
-import { Bot } from "grammy";
+import { webhookCallback } from "grammy";
+import { bot } from "./bot.js";
+
+const handleUpdate = webhookCallback(bot, "cloudflare-mod");
 
 export default {
-  async fetch(request, env) {
-    const bot = new Bot(env.BOT_TOKEN);
-
-    if (request.method === "GET") {
-      return new Response("UNIQUE 001 is online.", {
-        status: 200,
-        headers: {
-          "content-type": "text/plain;charset=UTF-8"
-        }
-      });
-    }
-
-    if (request.method === "POST") {
-      try {
-        const update = await request.json();
-        await bot.handleUpdate(update);
-
-        return new Response("OK", { status: 200 });
-      } catch (error) {
-        console.error("Telegram update error:", error);
-
-        return new Response("Webhook error", {
-          status: 500
+  async fetch(request, env, ctx) {
+    try {
+      // Health check
+      if (request.method === "GET") {
+        return new Response("UNIQUE 001 is ONLINE", {
+          status: 200,
+          headers: {
+            "Content-Type": "text/plain"
+          }
         });
       }
-    }
 
-    return new Response("Method Not Allowed", {
-      status: 405
-    });
+      // Telegram webhook
+      if (request.method === "POST") {
+        return await handleUpdate(request);
+      }
+
+      return new Response("Method Not Allowed", {
+        status: 405
+      });
+
+    } catch (error) {
+      console.error("UNIQUE 001 ERROR:", error);
+
+      return new Response("Internal Server Error", {
+        status: 500
+      });
+    }
   }
 };
